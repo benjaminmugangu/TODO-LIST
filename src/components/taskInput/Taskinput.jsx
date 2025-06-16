@@ -14,10 +14,11 @@ export const TaskInput = ({ addTask }) => {
 
     const handleAddTask = (e) => {
         e.preventDefault(); // Empêche le rechargement de la page lors de la soumission du formulaire
-        addTask(taskTitle);
-        setTaskTitle(""); // Réinitialise le champ de saisie après l'ajout de la tâche
-  
-       
+        if (taskTitle.trim()) {// Vérifie si le titre de la tâche n'est pas vide
+            addTask(taskTitle);// Appelle la fonction addTask passée en prop pour ajouter la tâche
+            setTaskTitle(""); // Réinitialise le champ de saisie après l'ajout de la tâche
+
+        }
     };
     return (
         <div className={`box ${styles.element}`}>
@@ -27,7 +28,8 @@ export const TaskInput = ({ addTask }) => {
                     type="text"
                     className={styles.input}
                     placeholder="Entrez votre tâche ici..."
-                    onChange={handleInputChange}
+                    onChange={handleInputChange}// Met à jour l'état taskTitle à chaque changement de saisie
+                    value={taskTitle}// La valeur de l'input est liée à l'état taskTitle
                 />
                 <button type="submit" className={`button-primary ${styles.button}`}>
                     Ajouter
